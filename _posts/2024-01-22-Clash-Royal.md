@@ -5,7 +5,7 @@ layout: post
 title: Search
 description: Plans and initial designs for CPT project
 courses: { TimeBox: {week: 1} }
-type: Code, Code, Code	
+type: tangibles	
 ---
 
 <html>
