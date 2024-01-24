@@ -4,7 +4,7 @@ comments: true
 layout: post
 title: Search
 description: Plans and initial designs for CPT project
-courses: { TimeBox: {week: 1} }
+courses: { timebox: {week: 1} }
 type: tangibles	
 ---
 
