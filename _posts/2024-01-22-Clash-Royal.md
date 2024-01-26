@@ -272,16 +272,6 @@ type: tangibles
       "rarity": "epic"
     },
     {
-      "name": "Nigger",
-      "id": 26000021,
-      "maxLevel": 12,
-      "elixirCost": 4,
-      "iconUrls": {
-        "medium": "https://api-assets.clashroyale.com/cards/300/Ubu0oUl8tZkusnkZf8Xv9Vno5IO29Y-jbZ4fhoNJ5oc.png"
-      },
-      "rarity": "rare"
-    },
-    {
       "name": "Hog Rider",
       "id": 26000021,
       "maxLevel": 12,
