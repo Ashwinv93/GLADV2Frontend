@@ -7,10 +7,9 @@ baseurl: "/GLADV2Frontend"
 remote_theme: jekyll/minima
 minima:
   social_links:
-    - { platform: github, user_url: "https://github.com/jplip"}
-    - { platform: github, user_url: "https://github.com/iKAN2025"}
-    - { platform: github, user_url: "https://github.com/vibha-yganji"}
-    - { platform: github, user_url: "https://github.com/flying-book"}
+    - { platform: github, user_url: "https://github.com/nighthawkcoders"}
+    - { platform: github, user_url: "https://github.com/Tirth-Thakkar"}
+    - { platform: github, user_url: "https://github.com/h4seeb-cmd"}
 # remote_theme: pages-themes/dinky@v0.2.0
 # remote_theme: pages-themes/minimal@v0.2.0
 # remote_theme: pages-themes/hacker@v0.2.0
