@@ -269,7 +269,11 @@ type: tangibles
         "medium": "https://api-assets.clashroyale.com/cards/300/0p0gd0XaVRu1Hb1iSG1hTYbz2AN6aEiZnhaAib5O8Z8.png"
       },
       "rarity": "epic"
+<<<<<<< HEAD
     }, 
+=======
+    },
+>>>>>>> origin/main
     {
       "name": "Hog Rider",
       "id": 26000021,
