@@ -4,15 +4,15 @@ owner_name: Ashwin V
 github_username: Ashwinv93
 github_repo: "Nighthawk-Pages"
 baseurl: "/GLADV2Frontend"
-remote_theme: jekyll/minima
-minima:
-  social_links:
-    - { platform: github, user_url: "https://github.com/nighthawkcoders"}
-    - { platform: github, user_url: "https://github.com/Tirth-Thakkar"}
-    - { platform: github, user_url: "https://github.com/h4seeb-cmd"}
+remote_theme: jekyll/minimal
+# minima:
+  # social_links:
+  #   - { platform: github, user_url: "https://github.com/nighthawkcoders"}
+  #   - { platform: github, user_url: "https://github.com/Tirth-Thakkar"}
+  #   - { platform: github, user_url: "https://github.com/h4seeb-cmd"}
 # remote_theme: pages-themes/dinky@v0.2.0
-# remote_theme: pages-themes/minimal@v0.2.0
-# remote_theme: pages-themes/hacker@v0.2.0
+#remote_theme: pages-themes/minimal@v0.2.0
+remote_theme: pages-themes/hacker@v0.2.0
 # remote_theme: pages-themes/cayman@v0.2.0
 # remote_theme: pages-themes/time-machine@v0.2.0
 plugins:
