@@ -7,6 +7,7 @@ description: Plans and initial designs for CPT project
 courses: { timebox: {week: 1} }
 type: tangibles	
 ---
+
 <html>
 <head>
     <title>Clash Royale Card Search</title>
