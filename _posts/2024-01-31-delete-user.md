@@ -1,11 +1,10 @@
 ---
 toc: true
 comments: true
-layout: post
+layout: notebook
 title: delete
-courses: { timebox: {week: 2} }
-type: hacks
-permalink:  
+courses: { timebox: {week: 3} }
+type: tangibles
 ---
 
 
