@@ -3,7 +3,7 @@ toc: true
 comments: true
 layout: post
 title: delete
-courses: { timebox: {week: 20} }
+courses: { timebox: {week: 2} }
 type: hacks
 permalink:  
 ---
