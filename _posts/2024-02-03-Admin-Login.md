@@ -1,4 +1,11 @@
-
+---
+toc: true
+comments: true
+layout: notebook
+title: admin login demo 
+courses: { timebox: {week: 3} }
+type: tangibles
+---
 
 <!DOCTYPE html>
 <html lang="en">
