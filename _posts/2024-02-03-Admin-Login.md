@@ -55,9 +55,9 @@ type: tangibles
             .then(data => {
                 const payload = parseJwt(data.token);
                 if (payload.isAdmin && payload.isAdmin === 'yes') {
-                    window.location.href = '/admin_page.html'; // Admin page URL
+                    window.location.href = '{{site.baseurl}}/adminpage'; // Admin page URL
                 } else {
-                    window.location.href = '/normal_user_page.html'; // Normal user page URL
+                    window.location.href = '{{site.baseurl}}/userpage'; // Normal user page URL
                 }
             })
             .catch(error => {
