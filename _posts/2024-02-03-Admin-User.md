@@ -35,8 +35,7 @@ type: tangibles
             const newUser = {
                 name: document.getElementById('regName').value,
                 uid: document.getElementById('regUid').value,
-                password: document.getElementById('regPassword').value,
-                admin: 'no' // Defaulting as non-admin user
+                password: document.getElementById('regPassword').value
             };
 
             fetch(uri + 'api/users/', {
@@ -44,39 +43,18 @@ type: tangibles
                 method: 'POST',
                 body: JSON.stringify(newUser)
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 alert('Account created successfully!');
                 console.log(data);
-                // Attempt to access admin-only page
-                redirectToAdminPage();
+                // Directly redirect to normal user page after account creation
+                window.location.href = '/normal_user_page.html';
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('Failed to create account');
             });
         });
-
-        function redirectToAdminPage() {
-            fetch(uri + 'path-to-our-server/admin-page-endpoint', { credentials: 'include' }) // Include credentials if needed
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = '/admin_page.html'; // Admin page URL
-                } else if (response.status === 403) {
-                    alert('Access denied: You are not an admin.');
-                } else {
-                    throw new Error('Failed to fetch admin page');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }
     </script>
 </body>
 </html>
