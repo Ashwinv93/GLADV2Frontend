@@ -2,7 +2,7 @@
 comments: false
 layout: post
 title: Sign-Up
-description: Sign Up Actual
+description: Sign Up ACTUAL
 permalink: /signup
 courses: {timebox: {week: 3}}
 type: hacks
