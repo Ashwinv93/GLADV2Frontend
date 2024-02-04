@@ -26,7 +26,7 @@ type: tangibles
         </form>
     </div>
 
-    <script type="module">
+<script type="module">
         import { uri, options } from './config.js'; // Adjust the path as needed
 
         document.getElementById('registerForm').addEventListener('submit', function(e) {
@@ -44,28 +44,39 @@ type: tangibles
                 method: 'POST',
                 body: JSON.stringify(newUser)
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
             .then(data => {
                 alert('Account created successfully!');
                 console.log(data);
+                // Attempt to access admin-only page
+                redirectToAdminPage();
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to create account');
+            });
         });
 
-        function checkAdminAccess() {
-            fetch(uri + 'api/admin-only-page', options) // Replace with your admin-only endpoint
+        function redirectToAdminPage() {
+            fetch(uri + 'path-to-our-server/admin-page-endpoint', { credentials: 'include' }) // Include credentials if needed
             .then(response => {
-                if (response.status === 401) {
-                    alert('Restricted Access: Only Admins are allowed!');
+                if (response.ok) {
+                    window.location.href = '/admin_page.html'; // Admin page URL
+                } else if (response.status === 403) {
+                    alert('Access denied: You are not an admin.');
                 } else {
-                    // Proceed if access is granted
+                    throw new Error('Failed to fetch admin page');
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
-
-        // Call this function to test access restriction
-        checkAdminAccess();
     </script>
 </body>
 </html>
