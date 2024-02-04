@@ -55,6 +55,22 @@ type: tangibles
                 alert('Failed to create account');
             });
         });
+
+        function redirectToAdminPage() {
+            fetch(uri + '{{site.baseurl}}/adminpage', { credentials: 'include' }) // Include credentials if needed
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/admin_page.html'; // Admin page URL
+                } else if (response.status === 403) {
+                    alert('Access denied: You are not an admin.');
+                } else {
+                    throw new Error('Failed to fetch admin page');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
     </script>
 </body>
 </html>
