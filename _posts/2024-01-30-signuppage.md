@@ -110,7 +110,7 @@ The script defines a function when the page loads. This function is triggered wh
     const body = {
             // name: document.getElementById("name").value,
             uid: "toby",
-            password: "123toby"
+            password: "123toby",
             // dob: document.getElementById("dob").value
         };
     const authOptions = {
@@ -120,17 +120,15 @@ The script defines a function when the page loads. This function is triggered wh
             body: JSON.stringify(body)
         };
     fetch(url, authOptions)
-
     function login_user(){
         // Set Authenticate endpoint
         const url = uri + '/api/users/';
-      
         // Set the body of the request to include login data from the DOM
         const body = {
             name: document.getElementById("name").value,
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
-            dob: document.getElementById("dob").value
+            dob: document.getElementById("dob").value,
         };
         // Change options according to Authentication requirements
         const authOptions = {
@@ -139,6 +137,7 @@ The script defines a function when the page loads. This function is triggered wh
             cache: 'no-cache', // Set the cache property
             body: JSON.stringify(body)
         };
+
         // Fetch JWT
         fetch(url, authOptions)
         .then(response => {
@@ -156,7 +155,8 @@ The script defines a function when the page loads. This function is triggered wh
         .catch(err => {
             console.error(err);
         });
-    };
+    }
+
     // Attach login_user to the window object, allowing access to form action
     window.login_user = login_user;
 </script>

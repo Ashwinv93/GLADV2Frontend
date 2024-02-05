@@ -89,10 +89,10 @@ span.psw {
 </form>
 <script type="module">
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
+    const url = uri + '/api/users/authenticate';
     function login_user(){
       var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
-        const url = uri + '/api/users/authenticate';
         const body = {
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
