@@ -1,21 +1,11 @@
 ---
 comments: True
-layout: base
+layout: post
 title: Clash Royale Sign Up
-description: cooking
 courses: {'compsci': {'week': 4}}
 type: hacks
-permalink: /signup
+permalink: signup
 ---
-<style>
-
-</style>
-<!-- 
-A simple HTML login form with a Login action when button is pressed.  
-
-The form triggers the login_user function defined in the JavaScript below when the Login button is pressed.
--->
-
 <div class="container">
     <form id="username" action="javascript:login_user()">
         <p>
@@ -48,7 +38,7 @@ The form triggers the login_user function defined in the JavaScript below when t
         </p>
     </form>
 </div>
-
+<a href='{{site.baseurl}}/login'> Already have an acount?</a>
 
 <!-- 
 Below JavaScript code is designed to handle user authentication in a web application. It's written to work with a backend server that uses JWT (JSON Web Tokens) for authentication.
