@@ -30,8 +30,8 @@ permalink: signup
             <input class="userInput" type="text" id="dob" required>
         </label></p>
 		<p><label>
-			Admin (yes/no):
-			<input class="userInput" type="text" id="admin" required>
+			role (Admin/User):
+			<input class="userInput" type="text" id="role" required>
 		</label></p>
         <p>
             <button onclick="login_user()">Submit</button>
@@ -71,7 +71,7 @@ The script defines a function when the page loads. This function is triggered wh
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
             dob: document.getElementById("dob").value,
-			admin: document.getElementById("admin").value
+			role: document.getElementById("role").value
         };
         // Change options according to Authentication requirements
         const authOptions = {
