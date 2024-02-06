@@ -30,7 +30,7 @@ The form triggers the login_user function defined in the JavaScript below when t
         <p>
             <button>Login</button>
         </p>
-        <a href='{{site.baseurl}}/signup'>Register</a>
+        <a href='{{site.baseurl}}/signup'>Create an Acount</a>
     </form>
 </div>
 

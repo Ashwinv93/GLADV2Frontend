@@ -1,86 +1,32 @@
 ---
-comments: false
-layout: post
-title: Sign-Up
-description: Sign Up ACTUAL
-permalink: signup
-courses: {timebox: {week: 3}}
+comments: True
+layout: base
+title: Clash Royale Sign Up
+description: cooking
+courses: {'compsci': {'week': 4}}
 type: hacks
+permalink: /signup
 ---
-
 <style>
- #login {
-    margin-top: 10px;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    text-align: center;
-    width:100%;
-}
-.login-container {
-  border: 3px solid #f1f1f1;
-}
-
-input[type=text], input[type=password] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
-
-button {
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 50%;
-  margin-left: 200px;
-}
-
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
-
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
-
-.container {
-  padding: 16px;
-}
-
-span.psw {
-  display: flex;
-  justify-items: center;
-  text-align: center;
-  margin-left: 325px;
-  padding-top: 16px;
-}
-
-@media screen and (max-width: 300px) {
-  span.psw {
-    display: block;
-    float: none;
-  }
-  .cancelbtn {
-    width: 100%;
-  }
-}
 
 </style>
-<div class="login-container">
-  </div>
+<!-- 
+A simple HTML login form with a Login action when button is pressed.  
 
-<form action="javascript:login_user()">
+The form triggers the login_user function defined in the JavaScript below when the Login button is pressed.
+-->
+
+<div class="container">
+    <form id="username" action="javascript:login_user()">
+        <p>
+        <img src="data:image/jpeg;base64,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" width="560px" height="350px">
+        </p>
+        <p>
         <label>
             Name:
             <input class="userInput" type="text" name="name" id="name" required>
         </label>
+        </p>
         <p><label>
             User ID:
             <input class="userInput" type="text" name="uid" id="uid" required>
@@ -93,15 +39,21 @@ span.psw {
             Date of Birth:
             <input class="userInput" type="text" id="dob" required>
         </label></p>
+		<p><label>
+			Admin (yes/no):
+			<input class="userInput" type="text" id="admin" required>
+		</label></p>
         <p>
             <button onclick="login_user()">Submit</button>
         </p>
-    <span class="psw"><a href="{{site.baseurl}}/login"> Log in</a></span>
     </form>
+</div>
 
-<!--
+
+<!-- 
 Below JavaScript code is designed to handle user authentication in a web application. It's written to work with a backend server that uses JWT (JSON Web Tokens) for authentication.
-The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed.
+
+The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. 
  -->
 <script type="module">
     // uri variable and options object are obtained from config.js
@@ -129,6 +81,7 @@ The script defines a function when the page loads. This function is triggered wh
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
             dob: document.getElementById("dob").value,
+			      admin: document.getElementById("admin").value
         };
         // Change options according to Authentication requirements
         const authOptions = {
