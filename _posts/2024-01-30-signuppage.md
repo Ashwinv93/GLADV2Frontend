@@ -3,7 +3,7 @@ comments: false
 layout: post
 title: Sign-Up
 description: Sign Up ACTUAL
-permalink: /signup
+permalink: signup
 courses: {timebox: {week: 3}}
 type: hacks
 ---
