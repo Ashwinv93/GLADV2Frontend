@@ -12,7 +12,6 @@ A simple HTML login form with a Login action when button is pressed.
 
 The form triggers the login_user function defined in the JavaScript below when the Login button is pressed.
 -->
-<div class="background">
 
 <div class="container">
     <form id="username" action="javascript:login_user()">
@@ -32,7 +31,6 @@ The form triggers the login_user function defined in the JavaScript below when t
         </p>
         <a href='{{site.baseurl}}/signup'>Create an Acount</a>
     </form>
-</div>
 
 
 <!-- 
@@ -95,9 +93,21 @@ The script defines a function when the page loads. This function is triggered wh
             }
             // Success!!!
             // Redirect to the database page
-            window.location.href = "{{site.baseurl}}/AD_TimeBox.html";
+            // window.location.href = "{{site.baseurl}}/AD_TimeBox.html";
         })
         // catch fetch errors (ie ACCESS to server blocked)
+        .then(data => {
+            // Check if the user is an admin based on the role
+            if (data && data.isAdmin == "yes") {
+                console.log("User is an admin");
+                window.location.href = "{{site.baseurl}}/database";
+            } 
+            else {
+                console.log("User is not an admin");
+                // Redirect to the database page
+                window.location.href = "{{site.baseurl}}/AD_TimeBox.html";
+            }
+        })
         .catch(err => {
             console.error(err);
         });
