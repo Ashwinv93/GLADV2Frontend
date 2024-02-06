@@ -73,13 +73,20 @@ The script defines a function when the page loads. This function is triggered wh
                 if (response.status === 401) {
                     // Unauthorized - Redirect to 401 error page
                     window.location.href = "{{site.baseurl}}/401.html";
-                } else if (response.status === 403) {
+                }
+                else if (response.status === 400) {
+                    // Unauthorized - Redirect to 401 error page
+                    window.location.href = "{{site.baseurl}}/400.html";
+                }  
+                else if (response.status === 403) {
                     // Forbidden - Redirect to 403 error page
                     window.location.href = "{{site.baseurl}}/403.html";
-                } else if (response.status === 404) {
+                } 
+                else if (response.status === 404) {
                     // Not Found - Redirect to 404 error page
                     window.location.href = "{{site.baseurl}}/404.html";
-                } else {
+                } 
+                else {
                     // Handle other error responses
                     const errorMsg = 'Login error: ' + response.status;
                     console.log(errorMsg);
