@@ -71,7 +71,7 @@ The script defines a function when the page loads. This function is triggered wh
             uid: document.getElementById("uid").value,
             password: document.getElementById("password").value,
             dob: document.getElementById("dob").value,
-			      admin: document.getElementById("admin").value
+			admin: document.getElementById("admin").value
         };
         // Change options according to Authentication requirements
         const authOptions = {
