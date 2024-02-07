@@ -15,7 +15,6 @@ layout: base
     <p class="post-meta post-meta-title">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {{ page.date | date: date_format }}
       </time>
       {%- if page.modified_date -%}
         ~ 
@@ -31,7 +30,6 @@ layout: base
             {%- if forloop.last == false %}, {% endif -%}
         {% endfor %}
       {%- endif %}
-       • {% include reading_time.html -%}
     </p>
 
     {% if page.categories.size > 0 %}
