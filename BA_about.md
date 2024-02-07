@@ -4,6 +4,6 @@ title: About Me
 permalink: /about/
 ---
 
-A Fastpages clone, for CSA - Tirth Thakkar & Haseeb Beg
-
+Clash Royale Project Created by AP CSP Students: 
+Ashwin, Dante, Lincoln, Gurshawn, Vance
 
