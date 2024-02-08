@@ -1,9 +1,9 @@
 ---
 layout: page
-title: About Me
+title: About
 permalink: /about/
 ---
 
-Clash Royale Project Created by AP CSP Students: 
-Ashwin, Dante, Lincoln, Gurshawn, Vance
+### Clash Royale project created by AP CSP students: 
+- Ashwin, Dante, Lincoln, Gurshawn, Vance
 
