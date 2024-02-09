@@ -93,21 +93,9 @@ The script defines a function when the page loads. This function is triggered wh
             }
             // Success!!!
             // Redirect to the database page
-            // window.location.href = "{{site.baseurl}}/AD_TimeBox.html";
+            window.location.href = "{{site.baseurl}}/database";
         })
         // catch fetch errors (ie ACCESS to server blocked)
-        .then(data => {
-            // Check if the user is an admin based on the role
-            if (data && data.isrole == "yes") {
-                console.log("User is an admin");
-                window.location.href = "{{site.baseurl}}/database";
-            } 
-            else {
-                console.log("User is not an Admin");
-                // Redirect to the database page
-                window.location.href = "{{site.baseurl}}/AD_TimeBox.html";
-            }
-        })
         .catch(err => {
             console.error(err);
         });
