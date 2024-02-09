@@ -19,7 +19,7 @@ The form triggers the login_user function defined in the JavaScript below when t
         <img src="/https://assets1.ignimgs.com/2016/03/02/clash-royale-buttonjpg-c74daf.jpg" width="3000px" height="300px">
         </p>
         <p><label>
-            User ID:
+            Username:
             <input class="userInput" type="text" name="uid" id="uid" required>
         </label></p>
         <p ><label>
