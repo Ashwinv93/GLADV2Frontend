@@ -26,6 +26,10 @@ The form triggers the login_user function defined in the JavaScript below when t
             Password:
             <input class="userInput" type="password" name="password" id="password" required>
         </label></p>
+        <p><label>
+            Role:
+            <input class="userInput" type="text" name="roles" id="roles" required>
+        </label></p>
         <p>
             <button>Login</button>
         </p>
@@ -91,9 +95,16 @@ The script defines a function when the page loads. This function is triggered wh
                 }
                 return;
             }
+            if (document.getElementById("roles").value === "Admin") {
+                window.location.href = "{{ site.baseurl }}/database";
+            } else {
+                window.location.href = "{{ site.baseurl }}/home.html";
+            }
             // Success!!!
             // Redirect to the database page
-            window.location.href = "{{site.baseurl}}/database";
+            // Redirect to the database page
+
+            // window.location.href = "{{site.baseurl}}/database";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
