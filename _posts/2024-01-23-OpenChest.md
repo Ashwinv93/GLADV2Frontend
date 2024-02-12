@@ -33,7 +33,7 @@ type: tangibles
       backface-visibility: hidden;
     }
     .card-front {
-      background-color: #3498db;
+      background-color: #607EE2;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -41,7 +41,7 @@ type: tangibles
       color: white;
     }
     .card-back {
-      background-color: #3498db;
+      background-color: #607EEE;
       transform: rotateY(180deg);
       display: flex;
       flex-direction: column;
