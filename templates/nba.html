@@ -1,0 +1,61 @@
+---
+permalink: nba.html
+layout: base
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>NBA Player Search</title>
+<script>
+async function searchPlayer(event) {
+    event.preventDefault(); // Prevent form submission
+
+    let playerName = document.getElementById('playerName').value;
+    try {
+        let response = await fetch(`http://127.0.0.1:8086/search?name=${encodeURIComponent(playerName)}`);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        let data = await response.json();
+        
+        if (data.error) {
+            alert(data.error); // Show error message
+        } else {
+            displayData(data.profile, data.stats);
+        }
+    } catch (error) {
+        console.error('Fetch error:', error);
+    }
+}
+
+function displayData(profile, stats) {
+    console.log("Displaying data:", profile, stats); // Debugging line
+    document.getElementById('profileTable').innerHTML = '';
+    document.getElementById('statsTable').innerHTML = '';
+
+    let profileHtml = `<tr><th>Name</th><th>Age</th><th>Team</th></tr>`;
+    profileHtml += `<tr><td>${profile.name}</td><td>${profile.age || 'N/A'}</td><td>${profile.team}</td></tr>`;
+    document.getElementById('profileTable').innerHTML = profileHtml;
+
+    let statsHtml = `<tr><th>Average Points</th><th>Average Assists</th><th>Average Rebounds</th></tr>`;
+    statsHtml += `<tr><td>${stats.points}</td><td>${stats.assists}</td><td>${stats.rebounds}</td></tr>`;
+    document.getElementById('statsTable').innerHTML = statsHtml;
+}
+</script>
+</head>
+<body>
+
+<h2>Search NBA Player</h2>
+<form onsubmit="searchPlayer(event)">
+    <input type="text" id="playerName" placeholder="Enter player name">
+    <button type="submit">Search</button>
+</form>
+
+<h3>Profile</h3>
+<table id="profileTable"></table>
+
+<h3>Statistics</h3>
+<table id="statsTable"></table>
+
+</body>
+</html>

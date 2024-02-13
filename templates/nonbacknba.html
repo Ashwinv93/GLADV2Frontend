@@ -1,0 +1,77 @@
+---
+permalink: nba2.html
+layout: base
+---
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>NBA Player Stats</title>
+</head>
+<body>
+    <h1>Search for an NBA Player</h1>
+    <input type="text" id="playerName" placeholder="Enter player name">
+    <button onclick="searchPlayer()">Search</button>
+
+    <h2>Player Stats</h2>
+    <div id="playerStats">Enter a player name to see stats.</div>
+
+    <h2>My Team</h2>
+    <ul id="myTeam"></ul>
+    <button onclick="resetTeam()">Reset Team</button>
+
+    <script>
+    async function searchPlayer() {
+        const playerName = document.getElementById('playerName').value;
+        const playerStatsDiv = document.getElementById('playerStats');
+
+        // Fetch players matching the name
+        try {
+            const playerResponse = await fetch(`https://www.balldontlie.io/api/v1/players?search=${playerName}`);
+            const playersData = await playerResponse.json();
+
+            // Check if we got any players
+            if (playersData.data.length === 0) {
+                playerStatsDiv.innerHTML = 'Player not found.';
+                return;
+            }
+
+            // Assuming we take the first result as the player
+            const playerId = playersData.data[0].id;
+
+            // Fetch player's season averages
+            const statsResponse = await fetch(`https://www.balldontlie.io/api/v1/season_averages?season=2022&player_ids[]=${playerId}`);
+            const statsData = await statsResponse.json();
+
+            // Check if stats are available
+            if (statsData.data.length === 0) {
+                playerStatsDiv.innerHTML = 'Stats not found for the selected player.';
+                return;
+            }
+
+            const stats = statsData.data[0]; // Assuming only one season's stats are needed
+            playerStatsDiv.innerHTML = `
+                <p>Points per game: ${stats.pts}</p>
+                <p>Assists per game: ${stats.ast}</p>
+                <p>Rebounds per game: ${stats.reb}</p>
+                <button onclick="addToTeam('${playerName}')">Add to Team</button>
+            `;
+        } catch (error) {
+            console.error('Error fetching player data:', error);
+            playerStatsDiv.innerHTML = 'Failed to fetch player data.';
+        }
+    }
+
+    function addToTeam(playerName) {
+        const myTeam = document.getElementById('myTeam');
+        const playerItem = document.createElement('li');
+        playerItem.innerText = playerName;
+        myTeam.appendChild(playerItem);
+    }
+
+    function resetTeam() {
+        document.getElementById('myTeam').innerHTML = '';
+    }
+    </script>
+</body>
+</html>
+

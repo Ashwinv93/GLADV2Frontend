@@ -1,0 +1,51 @@
+---
+permalink: clash.html
+layout: base
+---
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash Royale Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Upcoming Events</h1>
+    <ul id="events-list"></ul>
+
+    <h1>Current Best Decks</h1>
+    <ul id="decks-list"></ul>
+
+    <h1>Leaderboard - Top Players</h1>
+    <ol id="leaderboard"></ol>
+
+    <script>
+        $(document).ready(function() {
+            const backendUrl = 'http://127.0.0.1:8086';
+        
+            // Fetch upcoming events
+            $.getJSON(`${backendUrl}/events`, function(data) {
+                // Check if data is an array itself
+                (Array.isArray(data) ? data : []).forEach(function(event) {
+                    $('#events-list').append(`<li>${event.name} - ${event.startTime}</li>`);
+                });
+            });
+        
+            // Fetch current best decks
+            $.getJSON(`${backendUrl}/decks/top`, function(data) {
+                // Adjusted assuming data is directly the array
+                (Array.isArray(data) ? data : []).forEach(function(deck) {
+                    $('#decks-list').append(`<li>${deck.name} - ${deck.description}</li>`);
+                });
+            });
+        
+            // Fetch leaderboard of top players
+            $.getJSON(`${backendUrl}/locations/global/players/ranked`, function(data) {
+                // Adjusted for direct array processing
+                (Array.isArray(data) ? data : []).forEach(function(player, index) {
+                    $('#leaderboard').append(`<li>${index + 1}. ${player.name} - ${player.trophies} trophies</li>`);
+                });
+            });
+        });
+        </script>              
+</html>       
