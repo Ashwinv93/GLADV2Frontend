@@ -35,6 +35,7 @@ type: tangibles
       position: absolute;
       backface-visibility: hidden;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 5px;
@@ -47,12 +48,13 @@ type: tangibles
     .card-back {
       background-color: #607EE2;
       transform: rotateY(180deg);
-      font-size: 10px;
+      font-size: 14px;
       color: white;
+      padding: 10px;
+      text-align: center;
     }
   </style>
 </head>
-
 <body>
   <div style="text-align: center;">
     <div id="initialImageContainer" style="display: inline-block;">
@@ -63,8 +65,13 @@ type: tangibles
     </div>
   </div>
   <div id="cardContainer" style="text-align: center; display: none;"></div>
-
   <button id="resetButton" style="display: none;">Reset</button>
+
+  <!-- Collection Section -->
+  <div id="collection">
+    <h2>My Collection</h2>
+    <div id="collectionCards"></div>
+  </div>
 
   <script>
     // Define card data
@@ -1223,9 +1230,8 @@ type: tangibles
     }
     ]
     };
-
     // Function to create a card element
-    function createCard(card) {
+    function createCard(card, isFlipped, isInCollection) {
       var cardElement = document.createElement("div");
       cardElement.classList.add("card");
 
@@ -1239,6 +1245,7 @@ type: tangibles
       var cardBack = document.createElement("div");
       cardBack.classList.add("card-back");
       cardBack.innerHTML = `
+        <p>Name: ${card.name}</p>
         <p>Elixir Cost: ${card.elixirCost}</p>
         <p>Max Level: ${card.maxLevel}</p>
         <p>Rarity: ${card.rarity}</p>
@@ -1248,10 +1255,30 @@ type: tangibles
       cardInner.appendChild(cardBack);
       cardElement.appendChild(cardInner);
 
+      if (isFlipped) {
+        cardElement.classList.add("flipped");
+      }
+
       // Add click event listener to flip the card
       cardElement.addEventListener("click", function() {
         cardElement.classList.toggle("flipped");
       });
+
+      if (isInCollection) {
+        var removeButton = document.createElement("button");
+        removeButton.textContent = "Remove from Collection";
+        removeButton.onclick = function() {
+          removeFromCollection(card.name);
+        };
+        cardBack.appendChild(removeButton);
+      } else {
+        var addButton = document.createElement("button");
+        addButton.textContent = "Add to Collection";
+        addButton.onclick = function() {
+          addToCollection(card.name);
+        };
+        cardBack.appendChild(addButton);
+      }
 
       return cardElement;
     }
@@ -1280,7 +1307,7 @@ type: tangibles
       }
 
       selectedCards.forEach(function(card) {
-        var cardElement = createCard(card);
+        var cardElement = createCard(card, false, false);
         cardContainer.appendChild(cardElement);
       });
 
@@ -1302,18 +1329,39 @@ type: tangibles
       document.getElementById("resetButton").style.display = "none"; // Hide the reset
     }
 
+    // Function to add card to the collection
+    function addToCollection(cardName) {
+      var collectionCards = document.getElementById("collectionCards");
+      var card = cardData.items.find(function(card) {
+        return card.name === cardName;
+      });
+      var cardElement = createCard(card, true, true);
+      collectionCards.appendChild(cardElement);
+    }
+
+    // Function to remove card from the collection
+    function removeFromCollection(cardName) {
+      var collectionCards = document.getElementById("collectionCards");
+      var cardElement = Array.from(collectionCards.children).find(function(child) {
+        return child.querySelector(".card-back p").textContent.includes(cardName);
+      });
+      if (cardElement) {
+        cardElement.remove();
+      }
+    }
+
     // Add click event listener to display cards when the initial image is clicked
     document.getElementById("initialImage").addEventListener("click", function() {
       var initialImageContainer = document.getElementById("initialImageContainer");
       initialImageContainer.style.display = "none";
-      displayChestCards(8, ["common", "common", "common", "rare", "rare", "epic", "epic", "legendary"]); // Open chest with 8 cards
+      displayChestCards(8, ["common", "common", "common", "common", "rare", "rare", "epic", "epic", "epic", "legendary"]); // Open chest with 8 cards
     });
 
     // Add click event listener to display cards when the chest image is clicked
     document.getElementById("chestImage").addEventListener("click", function() {
       var chestImageContainer = document.getElementById("chestImageContainer");
       chestImageContainer.style.display = "none";
-      displayChestCards(4, ["epic", "epic", "legendary", "champion"]); // Open chest with 4 cards
+      displayChestCards(4, ["epic", "epic", "epic", "legendary", "champion"]); // Open chest with 4 cards
     });
 
     // Add click event listener to reset the display when the reset button is clicked
