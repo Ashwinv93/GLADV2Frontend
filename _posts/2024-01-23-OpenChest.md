@@ -5,6 +5,7 @@ layout: post
 title: Chest Open
 courses: { timebox: {week: 2} }
 type: tangibles	
+permalink: ChestOpen
 ---
 
 <html lang="en">
@@ -1355,14 +1356,14 @@ type: tangibles
     document.getElementById("initialImage").addEventListener("click", function() {
       var initialImageContainer = document.getElementById("initialImageContainer");
       initialImageContainer.style.display = "none";
-      displayChestCards(8, ["common", "common", "common", "common", "rare", "rare", "epic", "epic", "epic", "legendary"]); // Open chest with 8 cards
+      displayChestCards(8, ["common", "common", "common", "common", "common", "common", "common", "common", "common", "common", "common", "common", "common", "common", "common", "common", "rare", "rare", "rare", "rare", "rare", "rare", "rare", "epic", "epic", "epic", "legendary"]); // Open chest with 8 cards
     });
 
     // Add click event listener to display cards when the chest image is clicked
     document.getElementById("chestImage").addEventListener("click", function() {
       var chestImageContainer = document.getElementById("chestImageContainer");
       chestImageContainer.style.display = "none";
-      displayChestCards(4, ["epic", "epic", "epic", "legendary", "champion"]); // Open chest with 4 cards
+      displayChestCards(4, ["epic", "epic", "epic", "epic", "epic", "epic", "epic", "epic", "epic", "epic", "epic", "legendary", "legendary", "champion"]); // Open chest with 4 cards
     });
 
     // Add click event listener to reset the display when the reset button is clicked

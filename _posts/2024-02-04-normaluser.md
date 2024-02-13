@@ -7,4 +7,4 @@ permalink: userpage
 courses: { timebox: {week: 3} }
 type: tangibles
 ---
-<html><head>User Page</head></html>
+<html><head>Our Features</head></html>
