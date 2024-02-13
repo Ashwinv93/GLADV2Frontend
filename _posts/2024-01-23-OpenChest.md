@@ -7,7 +7,10 @@ courses: { timebox: {week: 2} }
 type: tangibles	
 ---
 
-<body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     .card {
       width: 200px;
@@ -31,37 +34,43 @@ type: tangibles
       height: 100%;
       position: absolute;
       backface-visibility: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
     }
     .card-front {
       background-color: #607EE2;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 50px;
+      font-size: 18px;
       color: white;
     }
     .card-back {
-      background-color: #607EEE;
+      background-color: #607EE2;
       transform: rotateY(180deg);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
       font-size: 10px;
-      color: blue;
+      color: white;
     }
   </style>
+</head>
 
-  <div id="initialImageContainer" style="text-align: center;">
-    <img id="initialImage" src="https://static.wikia.nocookie.net/clashroyale/images/7/7f/Magical_Chest.png/revision/latest/scale-to-width-down/160?cb=20230411120930" alt="Initial Image" style="cursor: pointer;">
+<body>
+  <div style="text-align: center;">
+    <div id="initialImageContainer" style="display: inline-block;">
+      <img id="initialImage" src="initial_image.jpg" alt="Initial Image" style="cursor: pointer;">
+    </div>
+    <div id="chestImageContainer" style="display: inline-block; margin-left: 20px;">
+      <img id="chestImage" src="chest_image.jpg" alt="Chest Image" style="cursor: pointer;">
+    </div>
   </div>
   <div id="cardContainer" style="text-align: center; display: none;"></div>
+
+  <button id="resetButton" style="display: none;">Reset</button>
 
   <script>
     // Define card data
     var cardData = {
-      "items": [
-    {
+    "items": [
+                {
       "name": "Knight",
       "id": 26000000,
       "maxLevel": 14,
@@ -69,6 +78,7 @@ type: tangibles
       "elixirCost": 3,
       "iconUrls": {
         "medium": "https://api-assets.clashroyale.com/cards/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png",
+        "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/jAj1Q5rclXxU9kVImGqSJxa4wEMfEhvwNQ_4jiGUuqg.png"
       },
       "rarity": "common"
     },
@@ -80,7 +90,7 @@ type: tangibles
       "elixirCost": 3,
       "iconUrls": {
         "medium": "https://api-assets.clashroyale.com/cards/300/W4Hmp8MTSdXANN8KdblbtHwtsbt0o749BbxNqmJYfA8.png",
-
+        "evolutionMedium": "https://api-assets.clashroyale.com/cardevolutions/300/W4Hmp8MTSdXANN8KdblbtHwtsbt0o749BbxNqmJYfA8.png"
       },
       "rarity": "common"
     },
@@ -1212,9 +1222,9 @@ type: tangibles
       "rarity": "epic"
     }
     ]
-  };
+    };
 
-   // Function to create a card element
+    // Function to create a card element
     function createCard(card) {
       var cardElement = document.createElement("div");
       cardElement.classList.add("card");
@@ -1247,22 +1257,67 @@ type: tangibles
     }
 
     // Function to display cards
-    function displayCards() {
-      var initialImageContainer = document.getElementById("initialImageContainer");
-      initialImageContainer.style.display = "none";
+    function displayChestCards(cardCount, rarityProbabilities) {
+      var chestImageContainer = document.getElementById("chestImageContainer");
+      chestImageContainer.style.display = "none";
 
       var cardContainer = document.getElementById("cardContainer");
       cardContainer.style.display = "block";
       cardContainer.innerHTML = "";
 
-      for (var i = 0; i < 8; i++) {
-        var card = cardData.items[Math.floor(Math.random() * cardData.items.length)];
+      // Select cards based on rarity probabilities
+      var selectedCards = [];
+      while (selectedCards.length < cardCount) {
+        var randomIndex = Math.floor(Math.random() * rarityProbabilities.length);
+        var rarity = rarityProbabilities[randomIndex];
+        var filteredCards = cardData.items.filter(function(card) {
+          return card.rarity === rarity;
+        });
+        if (filteredCards.length > 0) {
+          var randomCardIndex = Math.floor(Math.random() * filteredCards.length);
+          selectedCards.push(filteredCards[randomCardIndex]);
+        }
+      }
+
+      selectedCards.forEach(function(card) {
         var cardElement = createCard(card);
         cardContainer.appendChild(cardElement);
-      }
+      });
+
+      document.getElementById("resetButton").style.display = "inline"; // Show the reset button
+    }
+
+    // Function to reset the display to the initial image
+    function resetDisplay() {
+      var initialImageContainer = document.getElementById("initialImageContainer");
+      initialImageContainer.style.display = "inline-block";
+
+      var chestImageContainer = document.getElementById("chestImageContainer");
+      chestImageContainer.style.display = "inline-block";
+
+      var cardContainer = document.getElementById("cardContainer");
+      cardContainer.style.display = "none";
+      cardContainer.innerHTML = "";
+
+      document.getElementById("resetButton").style.display = "none"; // Hide the reset
     }
 
     // Add click event listener to display cards when the initial image is clicked
-    document.getElementById("initialImage").addEventListener("click", displayCards);
+    document.getElementById("initialImage").addEventListener("click", function() {
+      var initialImageContainer = document.getElementById("initialImageContainer");
+      initialImageContainer.style.display = "none";
+      displayChestCards(8, ["common", "common", "common", "rare", "rare", "epic", "epic", "legendary"]); // Open chest with 8 cards
+    });
+
+    // Add click event listener to display cards when the chest image is clicked
+    document.getElementById("chestImage").addEventListener("click", function() {
+      var chestImageContainer = document.getElementById("chestImageContainer");
+      chestImageContainer.style.display = "none";
+      displayChestCards(4, ["epic", "epic", "legendary", "champion"]); // Open chest with 4 cards
+    });
+
+    // Add click event listener to reset the display when the reset button is clicked
+    document.getElementById("resetButton").addEventListener("click", resetDisplay);
   </script>
 </body>
+</html>
