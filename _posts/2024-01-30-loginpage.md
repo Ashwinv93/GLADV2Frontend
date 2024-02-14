@@ -125,7 +125,7 @@ The script defines a function when the page loads. This function is triggered wh
             // Success!!!
             // Redirect to the database page
             localStorage.setItem('uid', document.getElementById("uid").value);
-            window.location.href = "{{site.baseurl}}/cards";
+            window.location.href = "{{site.baseurl}}/userpage";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
