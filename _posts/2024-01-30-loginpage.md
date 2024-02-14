@@ -1,40 +1,79 @@
 ---
-toc: False
-layout: post
-hide: False
-title: Clash Royale Login
-courses: {timebox: {week: 3}}
-permalink: login
-type: hacks
+title: Login
+permalink: /login
 ---
-<!-- 
-A simple HTML login form with a Login action when button is pressed.  
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
 
-The form triggers the login_user function defined in the JavaScript below when the Login button is pressed.
--->
+  .container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .container h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  .userInput {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  .signup-link {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .signup-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .signup-link a:hover {
+    text-decoration: underline;
+  }
+</style>
 
 <div class="container">
-    <form id="username" action="javascript:login_user()">
-        <p>
-        <img src="/https://assets1.ignimgs.com/2016/03/02/clash-royale-buttonjpg-c74daf.jpg" width="3000px" height="300px">
-        </p>
-        <p><label>
-            Username:
-            <input class="userInput" type="text" name="uid" id="uid" required>
-        </label></p>
-        <p ><label>
-            Password:
-            <input class="userInput" type="password" name="password" id="password" required>
-        </label></p>
-        <p><label>
-            Role:
-            <input class="userInput" type="text" name="roles" id="roles" required>
-        </label></p>
-        <p>
-            <button>Login</button>
-        </p>
-        <a href='{{site.baseurl}}/signup'>Create an Acount</a>
-    </form>
+  <h2>Login</h2>
+  <div id="error-message" style="color: red; text-align: center; margin-bottom: 10px;"></div>
+  <form id="username" action="javascript:login_user()">
+    <p><input class="userInput" type="text" name="uid" id="uid" placeholder="User ID" required></p>
+    <p><input class="userInput" type="password" name="password" id="password" placeholder="Password" required></p>
+    <p><button>Login</button></p>
+    <p class="signup-link">
+      <a href="{{site.baseurl}}/createUser">Create New User</a>
+    </p>
+  </form>
+</div>
 
 
 <!-- 
@@ -43,6 +82,7 @@ Below JavaScript code is designed to handle user authentication in a web applica
 The script defines a function when the page loads. This function is triggered when the Login button in the HTML form above is pressed. 
  -->
 <script type="module">
+    
 
     // uri variable and options object are obtained from config.js
     import { uri, options } from '{{site.baseurl}}/assets/js/api/config.js';
@@ -72,44 +112,27 @@ The script defines a function when the page loads. This function is triggered wh
         .then(response => {
             // handle error response from Web API
             if (!response.ok) {
-                if (response.status === 401) {
-                    // Unauthorized - Redirect to 401 error page
-                    window.location.href = "{{site.baseurl}}/401.html";
-                }
-                else if (response.status === 400) {
-                    // Unauthorized - Redirect to 401 error page
-                    window.location.href = "{{site.baseurl}}/400.html";
-                }  
-                else if (response.status === 403) {
-                    // Forbidden - Redirect to 403 error page
-                    window.location.href = "{{site.baseurl}}/403.html";
-                } 
-                else if (response.status === 404) {
-                    // Not Found - Redirect to 404 error page
-                    window.location.href = "{{site.baseurl}}/404.html";
-                } 
-                else {
-                    // Handle other error responses
-                    const errorMsg = 'Login error: ' + response.status;
-                    console.log(errorMsg);
+                const errorMsg = 'Login error: ' + response.status;
+                console.log(errorMsg);
+                if (response.status === 400) {
+                    // Display error message
+                    document.getElementById("error-message").textContent = "Invalid username or password.";
+                } else {
+                    console.error('Login error: ' + response.status);
                 }
                 return;
             }
-            if (document.getElementById("roles").value === "Admin") {
-                window.location.href = "{{ site.baseurl }}/database";
-            } else {
-                window.location.href = "{{ site.baseurl }}/home.html";
-            }
             // Success!!!
             // Redirect to the database page
-            // Redirect to the database page
-
-            // window.location.href = "{{site.baseurl}}/database";
+            localStorage.setItem('uid', document.getElementById("uid").value);
+            window.location.href = "{{site.baseurl}}/cards";
         })
         // catch fetch errors (ie ACCESS to server blocked)
         .catch(err => {
             console.error(err);
         });
     }
+
     // Attach login_user to the window object, allowing access to form action
     window.login_user = login_user;
+</script>
