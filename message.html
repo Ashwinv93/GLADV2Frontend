@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message Board</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    #chat-area {
+        height: 300px;
+        overflow-y: scroll;
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+    #message-input {
+        width: calc(100% - 80px);
+        padding: 5px;
+        margin-right: 10px;
+    }
+    #submit-btn {
+        width: 70px;
+        padding: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<h2>Message Board</h2>
+
+<div id="chat-area"></div>
+
+<div>
+    <input type="text" id="message-input" placeholder="Type your message...">
+    <button id="submit-btn" onclick="sendMessage()">Submit</button>
+</div>
+
+<script>
+    function sendMessage() {
+        var messageInput = document.getElementById("message-input");
+        var message = messageInput.value;
+        if (message.trim() !== "") {
+            var chatArea = document.getElementById("chat-area");
+            var newMessage = document.createElement("p");
+            newMessage.textContent = message;
+            chatArea.appendChild(newMessage);
+            messageInput.value = "";
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+    }
+</script>
+
+</body>
+</html>
