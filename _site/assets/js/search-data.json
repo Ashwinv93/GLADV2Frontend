@@ -323,7 +323,7 @@
   
       ,"page9": {
           "title": "",
-          "content": "Clash Royale Dashboard . Upcoming Events . . Current Best Decks . . Leaderboard - Top Players . &lt;/html&gt; .",
+          "content": "&lt;!DOCTYPE html&gt; . Clash Royale Information Database . Search for Clash Royale Tournaments . Enter Tournament Name: Search Tournaments . Challenges . .",
           "url": "http://localhost:4100/GLADV2Frontend/clash.html",
           "relUrl": "/clash.html",
           "date": ""
