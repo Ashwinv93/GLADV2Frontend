@@ -312,7 +312,7 @@
   
       ,"page9": {
           "title": "",
-          "content": "&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Clash Royale Dashboard ======= Clash Royale Information Database &gt;&gt;&gt;&gt;&gt;&gt;&gt; 86070b2 (dataclash) . Upcoming Events . . Current Best Decks . . Leaderboard - Top Players . &lt;/html&gt; .",
+          "content": "Clash Royale Dashboard . Upcoming Events . . Current Best Decks . . Leaderboard - Top Players . &lt;/html&gt; .",
           "url": "http://localhost:4100/GLADV2Frontend/clash.html",
           "relUrl": "/clash.html",
           "date": ""
