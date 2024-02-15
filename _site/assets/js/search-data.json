@@ -47,9 +47,9 @@
     
         ,"post4": {
             "title": "Clash Royale Quiz",
-            "content": "Clash Royale Player Quiz . Clash Royale Player Quiz . Discover Your Ideal Clash Royale Deck . Start Quiz .",
-            "url": "http://localhost:4100/GLADV2Frontend/2024/02/12/Lincoln.html",
-            "relUrl": "/2024/02/12/Lincoln.html",
+            "content": "Clash Royale Player Quiz . Start the Quiz! .",
+            "url": "http://localhost:4100/GLADV2Frontend/cards",
+            "relUrl": "/cards",
             "date": " • Feb 12, 2024"
         }
         
@@ -323,7 +323,7 @@
   
       ,"page9": {
           "title": "",
-          "content": "Clash Royale Dashboard . Upcoming Events . . Current Best Decks . . Leaderboard - Top Players . &lt;/html&gt; .",
+          "content": "&lt;!DOCTYPE html&gt; . Clash Royale Information Database . Search for Clash Royale Tournaments . Enter Tournament Name: Search Tournaments . Challenges . .",
           "url": "http://localhost:4100/GLADV2Frontend/clash.html",
           "relUrl": "/clash.html",
           "date": ""
