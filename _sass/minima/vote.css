@@ -1,0 +1,15 @@
+/* Styles for cards */
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  width: 200px;
+  display: inline-block;
+}
+
+/* Styles for voting buttons */
+.vote-btn {
+  cursor: pointer;
+  margin-top: 5px;
+}
