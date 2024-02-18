@@ -1,0 +1,61 @@
+---
+permalink: royale.html
+layout: base
+courses: { timebox: {week: 3} }
+type: tangibles
+---
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clash Royale Information Database</title>
+</head>
+<body>
+    <h1>Search for Clash Royale Players</h1>
+    <form id="searchForm">
+        <label for="playerTag">Enter Player Tag:</label>
+        <input type="text" id="playerTag" name="playerTag">
+        <button type="submit">Search</button>
+    </form>
+    <div id="player-list">
+        <h2>Players</h2>
+        <!-- Players will be displayed here -->
+    </div>
+    <div id="playerinfo-list">
+        <h2>Player Info</h2>
+        <!-- Player info will be displayed here -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const backendUrl = 'http://127.0.0.1:8086';
+            // Function to fetch tournaments
+            function fetchPlayer(playerTag) {
+                $.getJSON(`${backendUrl}/players?${encodeURIComponent(playerTag)}`, function(data) {
+                    $('#tournaments-list').empty(); // Clear previous tournament results
+                    data.forEach(function(player) {
+                        let playerDiv = $('<div class="tournament"></div>');
+                        playerDiv.append(`<h3>${player.name}</h3>`);
+                        playerDiv.append(`<p><strong>Clan:</strong> ${player.clan}</p>`);
+                        playerDiv.append(`<p><strong>Trophies:</strong> ${player.trophies}</p>`);
+                        playerDiv.append(`<p><strong>Best Trophies:</strong> ${player.bestTrophies} </p>`);
+                        playerDiv.append(`<p><strong>Legacy Trophies:</strong> ${player.legacyTrophyRoadHighScore}</p>`);
+                        playerDiv.append(`<p><strong>Arena:</strong> ${player.arena}</p>`);
+                        playerDiv.append(`<p><strong>Wins - Losses:</strong> ${player.wins} - ${player.losses}</p>`);
+                        playerDiv.append(`<p><strong>Total Donations:</strong> ${player.totalDonations} </p>`);
+                        playerDiv.append(`<p><strong>War Day Wins:</strong> ${player.warDayWins} </p>`);
+                        $('#players-list').append(playerDiv);
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching tournaments: " + textStatus + ", " + errorThrown);
+                    $('#tournaments-list').empty().append(`<p>Error loading tournaments.</p>`);
+                });
+                           // Event listener for form submission
+            $('#searchForm').submit(function(event) {
+                event.preventDefault(); // Prevent form submission
+                let playerTag = $('#playerTag').val();
+                fetchPlayer(playerTag);
+                fetchChallenges();
+            });
+            }
+</body>
+</html>
