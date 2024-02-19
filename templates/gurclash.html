@@ -1,51 +1,85 @@
 ---
 permalink: clash.html
 layout: base
+courses: { timebox: {week: 3} }
+type: tangibles
 ---
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clash Royale Dashboard</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Clash Royale Information Database</title>
 </head>
 <body>
-    <h1>Upcoming Events</h1>
-    <ul id="events-list"></ul>
-
-    <h1>Current Best Decks</h1>
-    <ul id="decks-list"></ul>
-
-    <h1>Leaderboard - Top Players</h1>
-    <ol id="leaderboard"></ol>
-
+    <h1>Search for Clash Royale Tournaments</h1>
+    <form id="searchForm">
+        <label for="tournamentName">Enter Tournament Name:</label>
+        <input type="text" id="tournamentName" name="tournamentName">
+        <button type="submit">Search</button>
+    </form>
+    <div id="tournaments-list">
+        <h2>Tournaments</h2>
+        <!-- Tournaments will be displayed here -->
+    </div>
+    <div id="challenges-list">
+        <h2>Challenges</h2>
+        <!-- Challenges will be displayed here -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             const backendUrl = 'http://127.0.0.1:8086';
-        
-            // Fetch upcoming events
-            $.getJSON(`${backendUrl}/events`, function(data) {
-                // Check if data is an array itself
-                (Array.isArray(data) ? data : []).forEach(function(event) {
-                    $('#events-list').append(`<li>${event.name} - ${event.startTime}</li>`);
+            // Function to fetch tournaments
+            function fetchTournaments(tournamentName) {
+                $.getJSON(`${backendUrl}/tournaments?name=${encodeURIComponent(tournamentName)}`, function(data) {
+                    $('#tournaments-list').empty(); // Clear previous tournament results
+                    data.forEach(function(tournament) {
+                        let tournamentDiv = $('<div class="tournament"></div>');
+                        tournamentDiv.append(`<h3>${tournament.name}</h3>`);
+                        tournamentDiv.append(`<p><strong>Description:</strong> ${tournament.description}</p>`);
+                        tournamentDiv.append(`<p><strong>Status:</strong> ${tournament.status}</p>`);
+                        tournamentDiv.append(`<p><strong>Level Cap:</strong> ${tournament.levelCap}</p>`);
+                        tournamentDiv.append(`<p><strong>First Place Card Prize:</strong> ${tournament.firstPlaceCardPrize}</p>`);
+                        tournamentDiv.append(`<p><strong>Capacity:</strong> ${tournament.capacity} / ${tournament.maxCapacity}</p>`);
+                        tournamentDiv.append(`<p><strong>Preparation Duration:</strong> ${tournament.preparationDuration} seconds</p>`);
+                        tournamentDiv.append(`<p><strong>Duration:</strong> ${tournament.duration} seconds</p>`);
+                        tournamentDiv.append(`<p><strong>Created Time:</strong> ${new Date(tournament.createdTime).toLocaleString()}</p>`);
+                        // Assuming 'gameMode' object might not always be present
+                        if(tournament.gameMode && tournament.gameMode.id) {
+                            tournamentDiv.append(`<p><strong>Game Mode ID:</strong> ${tournament.gameMode.id}</p>`);
+                        }
+                        $('#tournaments-list').append(tournamentDiv);
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching tournaments: " + textStatus + ", " + errorThrown);
+                    $('#tournaments-list').empty().append(`<p>Error loading tournaments.</p>`);
                 });
-            });
-        
-            // Fetch current best decks
-            $.getJSON(`${backendUrl}/decks/top`, function(data) {
-                // Adjusted assuming data is directly the array
-                (Array.isArray(data) ? data : []).forEach(function(deck) {
-                    $('#decks-list').append(`<li>${deck.name} - ${deck.description}</li>`);
+            }
+            // Function to fetch challenges
+            function fetchChallenges() {
+                $.getJSON(`${backendUrl}/challenges`, function(data) {
+                    $('#challenges-list').empty(); // Clear previous challenge results
+                    data.forEach(function(challenge) {
+                        let challengeDiv = $('<div class="challenge"></div>');
+                        challengeDiv.append(`<h3>${challenge.name}</h3>`);
+                        challengeDiv.append(`<p><strong>Description:</strong> ${challenge.description}</p>`);
+                        challengeDiv.append(`<p><strong>Start Time:</strong> ${new Date(challenge.startTime).toLocaleString()}</p>`);
+                        challengeDiv.append(`<p><strong>End Time:</strong> ${new Date(challenge.endTime).toLocaleString()}</p>`);
+                        // Add more fields as needed
+                        $('#challenges-list').append(challengeDiv);
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching challenges: " + textStatus + ", " + errorThrown);
+                    $('#challenges-list').empty().append(`<p>Error loading challenges.</p>`);
                 });
-            });
-        
-            // Fetch leaderboard of top players
-            $.getJSON(`${backendUrl}/locations/global/players/ranked`, function(data) {
-                // Adjusted for direct array processing
-                (Array.isArray(data) ? data : []).forEach(function(player, index) {
-                    $('#leaderboard').append(`<li>${index + 1}. ${player.name} - ${player.trophies} trophies</li>`);
-                });
+            }
+            // Event listener for form submission
+            $('#searchForm').submit(function(event) {
+                event.preventDefault(); // Prevent form submission
+                let tournamentName = $('#tournamentName').val();
+                fetchTournaments(tournamentName);
+                fetchChallenges();
             });
         });
-        </script>              
-</html>       
+    </script>
+</body>
+</html>
