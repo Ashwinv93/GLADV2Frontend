@@ -8,6 +8,20 @@ type: tangibles
 <html>
 <head>
     <title>Clash Royale Information Database</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
     <h1>Search for Clash Royale Tournaments</h1>
@@ -18,63 +32,102 @@ type: tangibles
     </form>
     <div id="tournaments-list">
         <h2>Tournaments</h2>
-        <!-- Tournaments will be displayed here -->
+        <table id="tournamentTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Level Cap</th>
+                    <th>First Place Card Prize</th>
+                    <th>Capacity</th>
+                    <th>Preparation Duration</th>
+                    <th>Duration</th>
+                    <th>Created Time</th>
+                    <th>Game Mode ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Tournaments will be displayed here -->
+            </tbody>
+        </table>
     </div>
     <div id="challenges-list">
         <h2>Challenges</h2>
-        <!-- Challenges will be displayed here -->
+        <table id="challengeTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Win Mode</th>
+                    <th>Casual</th>
+                    <th>Max Losses</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Challenges will be displayed here -->
+            </tbody>
+        </table>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             const backendUrl = 'http://127.0.0.1:8086';
-            // Function to fetch tournaments
+            
             function fetchTournaments(tournamentName) {
                 $.getJSON(`${backendUrl}/tournaments?name=${encodeURIComponent(tournamentName)}`, function(data) {
-                    $('#tournaments-list').empty(); // Clear previous tournament results
+                    $('#tournamentTable tbody').empty();
                     data.forEach(function(tournament) {
-                        let tournamentDiv = $('<div class="tournament"></div>');
-                        tournamentDiv.append(`<h3>${tournament.name}</h3>`);
-                        tournamentDiv.append(`<p><strong>Description:</strong> ${tournament.description}</p>`);
-                        tournamentDiv.append(`<p><strong>Status:</strong> ${tournament.status}</p>`);
-                        tournamentDiv.append(`<p><strong>Level Cap:</strong> ${tournament.levelCap}</p>`);
-                        tournamentDiv.append(`<p><strong>First Place Card Prize:</strong> ${tournament.firstPlaceCardPrize}</p>`);
-                        tournamentDiv.append(`<p><strong>Capacity:</strong> ${tournament.capacity} / ${tournament.maxCapacity}</p>`);
-                        tournamentDiv.append(`<p><strong>Preparation Duration:</strong> ${tournament.preparationDuration} seconds</p>`);
-                        tournamentDiv.append(`<p><strong>Duration:</strong> ${tournament.duration} seconds</p>`);
-                        tournamentDiv.append(`<p><strong>Created Time:</strong> ${new Date(tournament.createdTime).toLocaleString()}</p>`);
-                        // Assuming 'gameMode' object might not always be present
-                        if(tournament.gameMode && tournament.gameMode.id) {
-                            tournamentDiv.append(`<p><strong>Game Mode ID:</strong> ${tournament.gameMode.id}</p>`);
-                        }
-                        $('#tournaments-list').append(tournamentDiv);
+                        $('#tournamentTable tbody').append(`
+                            <tr>
+                                <td>${tournament.name}</td>
+                                <td>${tournament.description}</td>
+                                <td>${tournament.status}</td>
+                                <td>${tournament.levelCap}</td>
+                                <td>${tournament.firstPlaceCardPrize}</td>
+                                <td>${tournament.capacity} / ${tournament.maxCapacity}</td>
+                                <td>${tournament.preparationDuration} seconds</td>
+                                <td>${tournament.duration} seconds</td>
+                                <td>${new Date(tournament.createdTime).toLocaleString()}</td>
+                                <td>${tournament.gameMode && tournament.gameMode.id ? tournament.gameMode.id : ''}</td>
+                            </tr>
+                        `);
                     });
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     console.error("Error fetching tournaments: " + textStatus + ", " + errorThrown);
                     $('#tournaments-list').empty().append(`<p>Error loading tournaments.</p>`);
                 });
             }
-            // Function to fetch challenges
+            
             function fetchChallenges() {
                 $.getJSON(`${backendUrl}/challenges`, function(data) {
-                    $('#challenges-list').empty(); // Clear previous challenge results
-                    data.forEach(function(challenge) {
-                        let challengeDiv = $('<div class="challenge"></div>');
-                        challengeDiv.append(`<h3>${challenge.name}</h3>`);
-                        challengeDiv.append(`<p><strong>Description:</strong> ${challenge.description}</p>`);
-                        challengeDiv.append(`<p><strong>Start Time:</strong> ${new Date(challenge.startTime).toLocaleString()}</p>`);
-                        challengeDiv.append(`<p><strong>End Time:</strong> ${new Date(challenge.endTime).toLocaleString()}</p>`);
-                        // Add more fields as needed
-                        $('#challenges-list').append(challengeDiv);
-                    });
+                    $('#challengeTable tbody').empty();
+                    if (Array.isArray(data)) {
+                        data.forEach(function(challenge) {
+                            $('#challengeTable tbody').append(`
+                                <tr>
+                                    <td>${challenge.id}</td>
+                                    <td>${challenge.name}</td>
+                                    <td>${challenge.description}</td>
+                                    <td>${challenge.winMode}</td>
+                                    <td>${challenge.casual}</td>
+                                    <td>${challenge.maxLosses}</td>
+                                </tr>
+                            `);
+                        });
+                    } else {
+                        console.error("Data received from backend is not an array");
+                    }
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     console.error("Error fetching challenges: " + textStatus + ", " + errorThrown);
                     $('#challenges-list').empty().append(`<p>Error loading challenges.</p>`);
                 });
             }
-            // Event listener for form submission
+            fetchChallenges();
+
             $('#searchForm').submit(function(event) {
-                event.preventDefault(); // Prevent form submission
+                event.preventDefault();
                 let tournamentName = $('#tournamentName').val();
                 fetchTournaments(tournamentName);
                 fetchChallenges();
