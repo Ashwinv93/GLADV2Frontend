@@ -4,7 +4,6 @@ layout: base
 courses: { timebox: {week: 3} }
 type: tangibles
 ---
-<!DOCTYPE html>
 <html>
 <head>
     <title>Clash Royale Information Database</title>
@@ -24,7 +23,27 @@ type: tangibles
     </style>
 </head>
 <body>
-    <h1>Search for Clash Royale Tournaments</h1>
+    <h1>Clash Royale Leaderboard</h1>
+    <div id="leaderboard">
+        <h2>Global Leaderboard</h2>
+        <table id="leaderboardTable">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player Tag</th>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Trophies</th>
+                    <th>Clan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Leaderboard data will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Search for Clash Royale Tournaments</h2>
     <form id="searchForm">
         <label for="tournamentName">Enter Tournament Name:</label>
         <input type="text" id="tournamentName" name="tournamentName">
@@ -75,6 +94,28 @@ type: tangibles
         $(document).ready(function() {
             const backendUrl = 'http://127.0.0.1:8086';
             
+            function fetchLeaderboard(season) {
+                $.getJSON(`${backendUrl}/leaderboard/${season}`, function(data) {
+                    $('#leaderboardTable tbody').empty();
+                    data.forEach(function(player) {
+                        $('#leaderboardTable tbody').append(`
+                            <tr>
+                                <td>${player.rank}</td>
+                                <td>${player.tag}</td>
+                                <td>${player.name}</td>
+                                <td>${player.expLevel}</td>
+                                <td>${player.trophies}</td>
+                                <td>${player.clan ? player.clan.name : ''}</td>
+                            </tr>
+                        `);
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching leaderboard: " + textStatus + ", " + errorThrown);
+                    $('#leaderboard').empty().append(`<p>Error loading leaderboard.</p>`);
+                });
+            }
+            fetchLeaderboard(1); // Fetch leaderboard for season 1
+
             function fetchTournaments(tournamentName) {
                 $.getJSON(`${backendUrl}/tournaments?name=${encodeURIComponent(tournamentName)}`, function(data) {
                     $('#tournamentTable tbody').empty();
