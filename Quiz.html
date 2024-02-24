@@ -202,27 +202,23 @@ function updateDeckDisplay(newCard, oldCard) {
 }
 
 function recalculateAndDisplayAverageElixirCost() {
-    var cardDivs = document.getElementById('deckImages').querySelectorAll('div');
     var totalElixirCost = 0;
+    var cardDivs = document.getElementById('deckImages').querySelectorAll('div');
 
-    cardDivs.forEach(function(div) {
-        // Extract card name from the alt attribute of the image within the div
-        var cardName = div.querySelector('img').alt;
+    for (var i = 0; i < cardDivs.length; i++) {
+        var cardName = cardDivs[i].querySelector('img').alt; 
         totalElixirCost += elixirCosts[cardName];
-    });
+    }
 
     var averageElixirCost = (totalElixirCost / cardDivs.length).toFixed(2);
 
-    // Check if the average elixir cost element already exists
     var avgElixirCostElement = document.getElementById('averageElixirCost');
     if (!avgElixirCostElement) {
-        // If it doesn't exist, create it
         avgElixirCostElement = document.createElement('p');
         avgElixirCostElement.id = 'averageElixirCost';
-        // Append the newly created element to the 'result' div
         document.getElementById('result').appendChild(avgElixirCostElement);
     }
-    // Update the content of the average elixir cost element
+
     avgElixirCostElement.textContent = 'Average Elixir Cost: ' + averageElixirCost;
 }
 
