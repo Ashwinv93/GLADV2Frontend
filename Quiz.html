@@ -88,10 +88,28 @@ function showResults() {
         deckListHtml += `<div><img src="${cardImages[cardName.trim()]}" alt="${cardName}" class="card-image">${cardName}</div>`;
         totalElixirCost += elixirCosts[cardName.trim()];
     });
+
+    // Calculate the average elixir cost
     var averageElixirCost = (totalElixirCost / deckListText.length).toFixed(2);
-    deckListHtml += `</div><p>Average Elixir Cost: ${averageElixirCost}</p>`;
+
+    // Append the deck images to the result div
     document.getElementById('result').innerHTML = deckListHtml;
+
+    // Check if the average elixir cost paragraph already exists
+    var avgElixirCostElement = document.getElementById('averageElixirCost');
+    if (!avgElixirCostElement) {
+        // If it doesn't exist, create it and append to the result div
+        avgElixirCostElement = document.createElement('p');
+        avgElixirCostElement.id = 'averageElixirCost';
+        document.getElementById('result').appendChild(avgElixirCostElement);
+    }
+    // Update the text content of the average elixir cost paragraph
+    avgElixirCostElement.textContent = 'Average Elixir Cost: ' + averageElixirCost;
+
+    // Ensure the result section is displayed
     document.getElementById('result').style.display = 'block';
+
+    // Call to show viable options
     showViableOptions(deckSuggestion);
 }
 
@@ -157,6 +175,19 @@ function swapCard(deckType, swapIndex, isUnswap) {
 
     // Recalculate and update the average elixir cost after swapping
     recalculateAndDisplayAverageElixirCost();
+}
+
+function generateCustomDeckRecommendation(cardTypePreference, strategyPreference) {
+    // Filter cards based on the user's preferences
+    var filteredCards = allCards.filter(card => card.type === cardTypePreference && card.strategy === strategyPreference);
+    
+    // Select up to 8 cards to recommend, prioritizing lower elixir cost for balance
+    var recommendedDeck = filteredCards.sort((a, b) => a.elixirCost - b.elixirCost).slice(0, 8);
+    
+    // Construct a message with the recommended deck
+    var deckMessage = "Recommended Deck based on your preferences: " + recommendedDeck.map(card => card.name).join(", ");
+    
+    return deckMessage;
 }
 
 
@@ -270,6 +301,38 @@ var cardImages = {
     // Add more cards as necessary
 };
 
+var allCards = [
+    { name: "Hog Rider", type: "Offensive", strategy: "Fast-paced attacks", elixirCost: 4 },
+    { name: "Tesla", type: "Defensive", strategy: "Control and counter", elixirCost: 4 },
+    { name: "Musketeer", type: "Support", strategy: "Control and counter", elixirCost: 4 },
+    { name: "Golem", type: "Tank", strategy: "Building up a big push", elixirCost: 8 },
+    { name: "Balloon", type: "Offensive", strategy: "Fast-paced attacks", elixirCost: 5 },
+    { name: "Tornado", type: "Defensive", strategy: "Control and counter", elixirCost: 3 },
+    { name: "Wizard", type: "Support", strategy: "Building up a big push", elixirCost: 5 },
+    { name: "Giant", type: "Tank", strategy: "Building up a big push", elixirCost: 5 },
+    { name: "Zap", type: "Support", strategy: "Fast-paced attacks", elixirCost: 2 },
+    { name: "Fireball", type: "Support", strategy: "Control and counter", elixirCost: 4 },
+    { name: "Ice Spirit", type: "Defensive", strategy: "Fast-paced attacks", elixirCost: 1 },
+    { name: "Miner", type: "Offensive", strategy: "Surprise elements and versatility", elixirCost: 3 },
+    { name: "Skeleton Army", type: "Defensive", strategy: "Control and counter", elixirCost: 3 },
+    { name: "Elixir Collector", type: "Support", strategy: "Building up a big push", elixirCost: 6 },
+    { name: "Lumberjack", type: "Offensive", strategy: "Fast-paced attacks", elixirCost: 4 },
+    { name: "Baby Dragon", type: "Support", strategy: "Building up a big push", elixirCost: 4 },
+    { name: "Night Witch", type: "Offensive", strategy: "Building up a big push", elixirCost: 4 },
+    { name: "Royal Giant", type: "Tank", strategy: "Surprise elements and versatility", elixirCost: 6 },
+    { name: "Electro Wizard", type: "Support", strategy: "Control and counter", elixirCost: 4 },
+    { name: "Mega Minion", type: "Defensive", strategy: "Control and counter", elixirCost: 3 },
+    { name: "Poison", type: "Support", strategy: "Surprise elements and versatility", elixirCost: 4 },
+    { name: "Dark Prince", type: "Offensive", strategy: "Fast-paced attacks", elixirCost: 4 },
+    { name: "Bowler", type: "Defensive", strategy: "Control and counter", elixirCost: 5 },
+    // Add more cards as necessary
+];
+
+var userCardTypePreference = "Offensive"; // Example preference
+var userStrategyPreference = "Fast-paced attacks"; // Example preference
+
+var customDeckRecommendation = generateCustomDeckRecommendation(userCardTypePreference, userStrategyPreference);
+console.log(customDeckRecommendation);
 
 
 document.getElementById('nextBtn').addEventListener('click', function() {

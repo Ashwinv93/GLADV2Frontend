@@ -71,51 +71,177 @@ window.onload = wrap_img;
       <div class="wrapper">
         <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clash Royale Dashboard</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Clash Royale Information Database</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upcoming Events</h1>
-    <ul id="events-list"></ul>
+    <h1>Clash Royale Leaderboard</h1>
+    <div id="leaderboard">
+        <h2>Global Leaderboard</h2>
+        <table id="leaderboardTable">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Player Tag</th>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Trophies</th>
+                    <th>Clan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Leaderboard data will be displayed here -->
+            </tbody>
+        </table>
+    </div>
 
-    <h1>Current Best Decks</h1>
-    <ul id="decks-list"></ul>
-
-    <h1>Leaderboard - Top Players</h1>
-    <ol id="leaderboard"></ol>
-
+    <h2>Search for Clash Royale Tournaments</h2>
+    <form id="searchForm">
+        <label for="tournamentName">Enter Tournament Name:</label>
+        <input type="text" id="tournamentName" name="tournamentName">
+        <button type="submit">Search</button>
+    </form>
+    <div id="tournaments-list">
+        <h2>Tournaments</h2>
+        <table id="tournamentTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Level Cap</th>
+                    <th>First Place Card Prize</th>
+                    <th>Capacity</th>
+                    <th>Preparation Duration</th>
+                    <th>Duration</th>
+                    <th>Created Time</th>
+                    <th>Game Mode ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Tournaments will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+    <div id="challenges-list">
+        <h2>Challenges</h2>
+        <table id="challengeTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Win Mode</th>
+                    <th>Casual</th>
+                    <th>Max Losses</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Challenges will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             const backendUrl = 'http://127.0.0.1:8086';
-        
-            // Fetch upcoming events
-            $.getJSON(`${backendUrl}/events`, function(data) {
-                // Check if data is an array itself
-                (Array.isArray(data) ? data : []).forEach(function(event) {
-                    $('#events-list').append(`<li>${event.name} - ${event.startTime}</li>`);
+            
+            function fetchLeaderboard(season) {
+                $.getJSON(`${backendUrl}/leaderboard/${season}`, function(data) {
+                    $('#leaderboardTable tbody').empty();
+                    data.forEach(function(player) {
+                        $('#leaderboardTable tbody').append(`
+                            <tr>
+                                <td>${player.rank}</td>
+                                <td>${player.tag}</td>
+                                <td>${player.name}</td>
+                                <td>${player.expLevel}</td>
+                                <td>${player.trophies}</td>
+                                <td>${player.clan ? player.clan.name : ''}</td>
+                            </tr>
+                        `);
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching leaderboard: " + textStatus + ", " + errorThrown);
+                    $('#leaderboard').empty().append(`<p>Error loading leaderboard.</p>`);
                 });
-            });
-        
-            // Fetch current best decks
-            $.getJSON(`${backendUrl}/decks/top`, function(data) {
-                // Adjusted assuming data is directly the array
-                (Array.isArray(data) ? data : []).forEach(function(deck) {
-                    $('#decks-list').append(`<li>${deck.name} - ${deck.description}</li>`);
+            }
+            fetchLeaderboard(1); // Fetch leaderboard for season 1
+
+            function fetchTournaments(tournamentName) {
+                $.getJSON(`${backendUrl}/tournaments?name=${encodeURIComponent(tournamentName)}`, function(data) {
+                    $('#tournamentTable tbody').empty();
+                    data.forEach(function(tournament) {
+                        $('#tournamentTable tbody').append(`
+                            <tr>
+                                <td>${tournament.name}</td>
+                                <td>${tournament.description}</td>
+                                <td>${tournament.status}</td>
+                                <td>${tournament.levelCap}</td>
+                                <td>${tournament.firstPlaceCardPrize}</td>
+                                <td>${tournament.capacity} / ${tournament.maxCapacity}</td>
+                                <td>${tournament.preparationDuration} seconds</td>
+                                <td>${tournament.duration} seconds</td>
+                                <td>${new Date(tournament.createdTime).toLocaleString()}</td>
+                                <td>${tournament.gameMode && tournament.gameMode.id ? tournament.gameMode.id : ''}</td>
+                            </tr>
+                        `);
+                    });
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching tournaments: " + textStatus + ", " + errorThrown);
+                    $('#tournaments-list').empty().append(`<p>Error loading tournaments.</p>`);
                 });
-            });
-        
-            // Fetch leaderboard of top players
-            $.getJSON(`${backendUrl}/locations/global/players/ranked`, function(data) {
-                // Adjusted for direct array processing
-                (Array.isArray(data) ? data : []).forEach(function(player, index) {
-                    $('#leaderboard').append(`<li>${index + 1}. ${player.name} - ${player.trophies} trophies</li>`);
+            }
+            
+            function fetchChallenges() {
+                $.getJSON(`${backendUrl}/challenges`, function(data) {
+                    $('#challengeTable tbody').empty();
+                    if (Array.isArray(data)) {
+                        data.forEach(function(challenge) {
+                            $('#challengeTable tbody').append(`
+                                <tr>
+                                    <td>${challenge.id}</td>
+                                    <td>${challenge.name}</td>
+                                    <td>${challenge.description}</td>
+                                    <td>${challenge.winMode}</td>
+                                    <td>${challenge.casual}</td>
+                                    <td>${challenge.maxLosses}</td>
+                                </tr>
+                            `);
+                        });
+                    } else {
+                        console.error("Data received from backend is not an array");
+                    }
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.error("Error fetching challenges: " + textStatus + ", " + errorThrown);
+                    $('#challenges-list').empty().append(`<p>Error loading challenges.</p>`);
                 });
+            }
+            fetchChallenges();
+
+            $('#searchForm').submit(function(event) {
+                event.preventDefault();
+                let tournamentName = $('#tournamentName').val();
+                fetchTournaments(tournamentName);
+                fetchChallenges();
             });
         });
-        </script>              
-</html>       
+    </script>
+</body>
+</html>
       </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/GLADV2Frontend/"></data>
