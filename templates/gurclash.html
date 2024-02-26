@@ -26,6 +26,12 @@ type: tangibles
     <h1>Clash Royale Leaderboard</h1>
     <div id="leaderboard">
         <h2>Global Leaderboard</h2>
+        <div>
+            <label for="seasonInput">Enter Season:</label>
+            <input type="number" id="seasonInput" name="seasonInput">
+            <button id="searchButton2">Search</button>
+            <button id="clearButton">Clear</button>
+        </div>
         <table id="leaderboardTable">
             <thead>
                 <tr>
@@ -49,6 +55,8 @@ type: tangibles
         <input type="text" id="tournamentName" name="tournamentName">
         <button type="submit">Search</button>
     </form>
+    <button id="clearButton2">Clear</button>
+
     <div id="tournaments-list">
         <h2>Tournaments</h2>
         <table id="tournamentTable">
@@ -93,9 +101,8 @@ type: tangibles
     <script>
         $(document).ready(function() {
             const backendUrl = 'http://127.0.0.1:8086';
-            
             function fetchLeaderboard(season) {
-                $.getJSON(`${backendUrl}/leaderboard/${season}`, function(data) {
+                $.getJSON(`${backendUrl}/leaderboard?season=${season}`, function(data) {
                     $('#leaderboardTable tbody').empty();
                     data.forEach(function(player) {
                         $('#leaderboardTable tbody').append(`
@@ -114,7 +121,16 @@ type: tangibles
                     $('#leaderboard').empty().append(`<p>Error loading leaderboard.</p>`);
                 });
             }
-            fetchLeaderboard(1); // Fetch leaderboard for season 1
+
+            $('#searchButton2').click(function() {
+                const season = $('#seasonInput').val();
+                fetchLeaderboard(season);
+            });
+            $('#clearButton').click(function() {
+                $('#seasonInput').val('');
+                $('#leaderboardTable tbody').empty();
+            });
+            fetchLeaderboard(1);
 
             function fetchTournaments(tournamentName) {
                 $.getJSON(`${backendUrl}/tournaments?name=${encodeURIComponent(tournamentName)}`, function(data) {
@@ -134,6 +150,10 @@ type: tangibles
                                 <td>${tournament.gameMode && tournament.gameMode.id ? tournament.gameMode.id : ''}</td>
                             </tr>
                         `);
+                    });
+                    $('#clearButton2').click(function() {
+                        $('#tournamentName').val('');
+                        $('#tournamentTable tbody').empty();
                     });
                 }).fail(function(jqXHR, textStatus, errorThrown) {
                     console.error("Error fetching tournaments: " + textStatus + ", " + errorThrown);
