@@ -5,7 +5,7 @@ layout: post
 title: Chest Open
 courses: { timebox: {week: 2} }
 type: tangibles	
-permalink: /ChestOpen
+permalink: ChestOpen
 ---
 
 <html lang="en">
