@@ -5,7 +5,7 @@ layout: post
 title: Collection
 courses: { timebox: {week: 2} }
 type: tangibles	
-permalink: /Collection
+permalink: Collection
 ---
 
 <html lang="en">
