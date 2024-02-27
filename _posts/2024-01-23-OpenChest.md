@@ -127,8 +127,8 @@ permalink: /ChestOpen
     return cardElement;
   }
 
-  document.getElementById('initialImage').addEventListener('click', function() {
-    displayCards('http://127.0.0.1:8086/api/card/commonChest?id=' + id);
+document.getElementById('initialImage').addEventListener('click', function() {
+displayCards('http://127.0.0.1:8086/api/card/commonChest?id=' + id);
 });
 
 document.getElementById('chestImage').addEventListener('click', function() {
