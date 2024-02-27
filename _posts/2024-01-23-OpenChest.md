@@ -150,5 +150,8 @@ cardContainer.innerHTML = "";
 document.getElementById("resetButton").style.display = "none";
 }
 </script>
+
+<a href="{{site.baseurl}}/Collection">Veiw Your collection</a>
+
 </body>
 </html>
