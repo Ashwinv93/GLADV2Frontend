@@ -301,7 +301,7 @@
   
       ,"page9": {
           "title": "",
-          "content": "Clash Royale Information Database . Clash Royale Leaderboard . Global Leaderboard . Rank Player Tag Name Level Trophies Clan . Search for Clash Royale Tournaments . Enter Tournament Name: Search Tournaments . Name Description Status Level Cap First Place Card Prize Capacity Preparation Duration Duration Created Time Game Mode ID . Challenges . ID Name Description Win Mode Casual Max Losses . .",
+          "content": "Clash Royale Information Database . Clash Royale Leaderboard . Global Leaderboard . Enter Season: Search Clear Rank Player Tag Name Level Trophies Clan . Search for Clash Royale Tournaments . Enter Tournament Name: Search Clear Tournaments . Name Description Status Level Cap First Place Card Prize Capacity Preparation Duration Duration Created Time Game Mode ID . Challenges . ID Name Description Win Mode Casual Max Losses . .",
           "url": "http://localhost:4100/GLADV2Frontend/clash.html",
           "relUrl": "/clash.html",
           "date": ""
