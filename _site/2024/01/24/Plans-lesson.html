@@ -8,8 +8,8 @@
 <meta name="generator" content="Jekyll v3.9.5" />
 <meta property="og:title" content="Top Decks" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="&lt;!DOCTYPE html&gt; Top Clash Royale Decks" />
-<meta property="og:description" content="&lt;!DOCTYPE html&gt; Top Clash Royale Decks" />
+<meta name="description" content="College Board 2021 MCQ Review" />
+<meta property="og:description" content="College Board 2021 MCQ Review" />
 <link rel="canonical" href="http://localhost:4100/GLADV2Frontend/2024/01/24/Plans-lesson.html" />
 <meta property="og:url" content="http://localhost:4100/GLADV2Frontend/2024/01/24/Plans-lesson.html" />
 <meta property="og:site_name" content="Clash Royale" />
@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Top Decks" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-01-24T00:00:00+00:00","datePublished":"2024-01-24T00:00:00+00:00","description":"&lt;!DOCTYPE html&gt; Top Clash Royale Decks","headline":"Top Decks","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4100/GLADV2Frontend/2024/01/24/Plans-lesson.html"},"url":"http://localhost:4100/GLADV2Frontend/2024/01/24/Plans-lesson.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2024-01-24T00:00:00+00:00","datePublished":"2024-01-24T00:00:00+00:00","description":"College Board 2021 MCQ Review","headline":"Top Decks","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4100/GLADV2Frontend/2024/01/24/Plans-lesson.html"},"url":"http://localhost:4100/GLADV2Frontend/2024/01/24/Plans-lesson.html"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/GLADV2Frontend/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4100/GLADV2Frontend/feed.xml" title="Clash Royale" /><link rel="shortcut icon" type="image/x-icon" href="/GLADV2Frontend/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -81,45 +81,87 @@ window.onload = wrap_img;
 
     </header>
 
-  <div class="post-content e-content" itemprop="articleBody"><p>&lt;!DOCTYPE html&gt;</p>
-<html lang="en">
-<body>
-    <h1>Top Clash Royale Decks</h1>
-    <ul id="deckList">
-        <!-- Decks will be dynamically added here using JavaScript -->
-    </ul>
-    <script>
-        // Replace 'YOUR_API_KEY' with your actual Clash Royale API key
-        const apiKey = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjE1NmRmNDhlLTJiZDUtNDkzZi1hODA0LTkxZmUzYTQ1Njg4MSIsImlhdCI6MTcwNjIwODE0Niwic3ViIjoiZGV2ZWxvcGVyLzhhNmQ0ZjdlLWVkNjAtYzQ5NC0yYjM4LWU1ZWM1NDQ2ZDYxOSIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyIwLjAuMC4wIl0sInR5cGUiOiJjbGllbnQifV19.8M5Ror_wZTDo1AZ4fZQwF9BMGiOyiJk458NequhdCfNHhfM0YRER0Fbk-AT8llC1QaD0Osf7G2fiah5Lpu6uOA';
-        const apiUrl = 'https://api.clashroyale.com/v1/decks/top?limit=10';
-        // Function to make an API request and populate the deck list
-        async function fetchTopDecks() {
-            try {
-                const response = await fetch(apiUrl, {
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Accept': 'application/json',
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error('Unable to fetch top decks');
-                }
-                const data = await response.json();
-                const deckList = document.getElementById("deckList");
-                data.items.forEach((deck, index) => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = `Deck ${index + 1}: ${deck.name} - Average Elixir Cost: ${deck.averageElixirCost}`;
-                    deckList.appendChild(listItem);
-                });
-            } catch (error) {
-                console.error(error.message);
-            }
-        }
-        // Populate the deck list when the page loads
-        window.onload = fetchTopDecks;
-    </script>
-</body>
-</html>
+  <div class="post-content e-content" itemprop="articleBody"><h2 id="college-board-2021-mcq-review">College Board 2021 MCQ Review</h2>
+
+<h2 id="i-scored-a-6170">I scored a 61/70</h2>
+
+<h2 id="question-9">Question 9</h2>
+
+<p>stats
+<img src="/GLADV2Frontend/images/Q9s.png" alt="Description of Image" /></p>
+
+<p>Photo of question</p>
+
+<p><img src="/GLADV2Frontend/images/Q9.png" alt="Description of Image" /></p>
+
+<p>My corrections/reflections: Answer C is incorrect because all digital data is represented as a sequence of bits. While you can change the audio data this way of changing it may not be applicable for all options. Answer B is correct because the audio signal is in fact stored in bits based on the measurements of the signal.</p>
+
+<h2 id="question-18">Question 18</h2>
+
+<p>stats
+<img src="/GLADV2Frontend/images/Q18s.png" alt="Description of Image" /></p>
+
+<p>Photo of question</p>
+
+<p><img src="/GLADV2Frontend/images/Q18.png" alt="Description of Image" /></p>
+
+<p>My corrections/reflections: Option D is incorrect because if devices C and F fail, D can still communicate with H through B, then E or G. Answer C is correct because If devices B and F fail, then devices E, G, and H will not be able to communicate A, C, D, and I. Therefore, device A will be unable to reach device G.</p>
+
+<h2 id="question-33">Question 33</h2>
+
+<p>stats
+<img src="/GLADV2Frontend/images/Q33s.png" alt="Description of Image" /></p>
+
+<p>Photo of question</p>
+
+<p><img src="/GLADV2Frontend/images/Q33.png" alt="Description of Image" /></p>
+
+<p>My corrections/reflections: Option C is inncorect because algorithm is proportional to n^2 which is considered a reasonable amount. Algorithm 2 is still proportional to n^2 so its still a reasonable amount of time. This is a heuristic approach since it uses an approx solution to figure out that algorithm 1 doesnt run in reasonable time.</p>
+
+<h2 id="question-50">Question 50</h2>
+
+<p>stats
+<img src="/GLADV2Frontend/images/Q50s.png" alt="Description of Image" /></p>
+
+<p>Photo of question</p>
+
+<p><img src="/GLADV2Frontend/images/Q50.png" alt="Description of Image" /></p>
+
+<p>My corrections/reflections: I picked option B which is incorrect because only one key is used for symmetric encryption so it should be kept secret to prevent hacking. Option A is correct since symmetric encryption does only use one key and since the key is valuable for accessing a lot of info it should be kept secret.</p>
+
+<h2 id="question-55">Question 55</h2>
+
+<p>stats
+<img src="/GLADV2Frontend/images/Q55s.png" alt="Description of Image" /></p>
+
+<p>Photo of question</p>
+
+<p><img src="/GLADV2Frontend/images/Q55.png" alt="Description of Image" /></p>
+
+<p>My corrections/reflections: I selected option A, but it is not correct the output of the code segment is simply the original list so it does not transform it. Option C is correct signs it removes the last variable of the list then reassigns it to the first element of the list.</p>
+
+<h2 id="question-57">Question 57</h2>
+
+<p>stats
+<img src="/GLADV2Frontend/images/Q57s.png" alt="Description of Image" /></p>
+
+<p>Photo of question</p>
+
+<p><img src="/GLADV2Frontend/images/Q57.png" alt="Description of Image" /></p>
+
+<p>My correction/reflection: I selected option D, but this option is incorrect since running p on one processor takes 30 sec and runnning the rest on another takes 45. Therefore this one will take 45 seconds instead of 40. Option a is correct since running p and q together and R and S together will result in the solution taking 40 seconds which is what is needed.</p>
+
+<h2 id="question-59">Question 59</h2>
+
+<p>stats
+<img src="/GLADV2Frontend/images/Q59s.png" alt="Description of Image" /></p>
+
+<p>Photo of question</p>
+
+<p><img src="/GLADV2Frontend/images/Q59.png" alt="Description of Image" /></p>
+
+<p>My correction/reflection: I selected option D, but this option is incorrect since running p on one processor takes 30 sec and runnning the rest on another takes 45. Therefore this one will take 45 seconds instead of 40. Option a is correct since running p and q together and R and S together will result in the solution taking 40 seconds which is what is needed.</p>
+
 
   </div><!-- from https://github.com/utterance/utterances -->
 <script src="https://utteranc.es/client.js"
