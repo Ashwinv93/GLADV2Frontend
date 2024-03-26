@@ -2,8 +2,8 @@
   
     
         "post0": {
-            "title": "NBA",
-            "content": "Home Team: Away Team: Predict Winner",
+            "title": "NBA Game Predictor",
+            "content": "Home Team: Select Home Team Away Team: Select Away Team Predict Winner",
             "url": "http://localhost:4100/GLADV2Frontend/NBA",
             "relUrl": "/NBA",
             "date": " • Mar 25, 2024"
