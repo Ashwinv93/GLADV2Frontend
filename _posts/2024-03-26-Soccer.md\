@@ -5,6 +5,7 @@ permalink: /soccer
 type: tangibles
 courses: { timebox: { week: 6 } }
 ---
+
 <body>
     <form id="soccerForm">
         <label for="team1">Home Team:</label>
