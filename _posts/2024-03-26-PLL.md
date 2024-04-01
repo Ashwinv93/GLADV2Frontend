@@ -1,0 +1,49 @@
+---
+title: Lacrosse Game Predictor
+layout: post
+permalink: /Lacrosse
+type: tangibles
+courses: { timebox: { week: 6 } }
+---
+<body>
+<form id="lacrosseForm">
+    <label for="team1">Home Team:</label>
+    <input type="text" id="team1" name="team1" required placeholder="Enter Home Team"><br><br>
+    <label for="team2">Away Team:</label>
+    <input type="text" id="team2" name="team2" required placeholder="Enter Away Team"><br><br>
+    <button type="button" onclick="predictWinner()">Predict Winner</button>
+</form>
+<div id="result"></div>
+    <script>
+      function predictWinner() {
+        var team1 = document.getElementById('team1').value;
+        var team2 = document.getElementById('team2').value;
+        var resultDiv = document.getElementById('result');
+                // Prepare data as JSON with team names
+        var data = {
+            "team1": team1,
+            "team2": team2
+        };
+                // Update the fetch URL to match your Flask API endpoint
+        fetch('http://localhost:8086/api/Lacrosse/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Displaying the likelihood percentages for both teams
+            resultDiv.innerHTML = '<h2>Prediction Result</h2>';
+            resultDiv.innerHTML += `<p>${team1}: ${data[team1]}</p>`; // Display team1 win rate
+            resultDiv.innerHTML += `<p>${team2}: ${data[team2]}</p>`; // Display team2 win rate
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            resultDiv.innerHTML = 'Error calculating winner';
+        });
+    }
+</script>
+</body>
