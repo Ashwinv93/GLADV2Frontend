@@ -24,8 +24,8 @@
   
     
         ,"post2": {
-            "title": "Lacrosse Game Predictor",
-            "content": "Home Team: Away Team: Predict Winner",
+            "title": "Lacrosse Match Predictor",
+            "content": "Team 1: Team 2: Predict Winner",
             "url": "http://localhost:4100/GLADV2Frontend/Lacrosse",
             "relUrl": "/Lacrosse",
             "date": " • Mar 26, 2024"
