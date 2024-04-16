@@ -2,7 +2,7 @@
 toc: true
 comments: true
 layout: notebook
-title: admin page
+title: Admin Page
 permalink: /adminpage
 courses: { timebox: {week: 3} }
 type: tangibles

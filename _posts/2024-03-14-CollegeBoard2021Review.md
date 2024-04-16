@@ -2,10 +2,9 @@
 toc: false
 comments: true
 layout: post
-title: cb
-courses: { timebox: {week: 2} }
+title: CB
+courses: { timebox: {week: "2"} }
 type: tangibles	
-permalink: cb
 ---
 
 ## College Board 2021 MCQ Review
