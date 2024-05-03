@@ -3,14 +3,14 @@ toc: false
 comments: true
 layout: post
 title: Top Decks
-courses: { timebox: {week: 3} }
+courses: { timebox: {week: 3} } 
 type: hacks	
 permalink: /newdecks
 ---
-<label for="sortSelect">Sort by:</label>
+<label for="sortSelect">Sort by:</label> 
 <select id="sortSelect" onchange="sortDecks()">
     <option value="deckname">Deck Name</option>
-    <option value="winrate">Win Rate</option>
+    <option value="winrate">Win Rate</option> 
     <option value="popularity">Popularity</option>
 </select>
 
@@ -32,9 +32,9 @@ permalink: /newdecks
 </table>
 
 <script>
-    async function fetchDecks() {
+    async function fetchDecks() { // Fetch deck data from backend database adress
         try {
-            const response = await fetch('http://localhost:8086/api/decks');
+            const response = await fetch('http://localhost:8086/api/decks'); 
             const decksData = await response.json();
             populateDecksTable(decksData);
         } catch (error) {
@@ -64,7 +64,7 @@ permalink: /newdecks
         });
     }
 
-function sortDecks() {
+function sortDecks() { // Sort function to change table based on data
     const sortSelect = document.getElementById("sortSelect");
     const selectedOption = sortSelect.value;
     const decksTableBody = document.querySelector('#decksTable tbody');
@@ -99,7 +99,7 @@ function sortDecks() {
         }
     }
 
-    function searchDecks() {
+    function searchDecks() { // Search for specific characters in the names of decks
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("searchInput");
         filter = input.value.toUpperCase();
